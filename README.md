@@ -473,6 +473,3 @@ wget http://www.mitsuba-renderer.org/scenes/matpreview.zip  # 球体
 1. Gabor噪声易于进行参数控制
 2. Gabor噪声内存占用小，且不受分辨率限制
 3. 在每格脉冲数较少时，Gabor噪声易于实现实时的纹理生成
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
