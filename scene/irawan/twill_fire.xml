@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--MDL to mitsuba converter. Mon Apr 18 16:33:45 CEST 2011.-->
+<scene version="0.6.0">
+	<bsdf type="diffuse" id="gabor">
+		<texture type="bitmap" name="reflectance">
+			<string name="filename" value="../../img/火焰纹理-各向异性-1-0.2-0.25-0-8-10.jpg" />
+			<string name="wrapMode" value="mirror" />
+			<string name="filterType" value="ewa" />
+			<float name="maxAnisotropy" value="100" />
+		</texture>
+	</bsdf>
+	<emitter type="point" id="light 0">
+		<spectrum name="intensity" value=".5" />
+		<transform name="toWorld">
+			<translate x="0.299707" y="-0.312531" z="0.25" />
+		</transform>
+	</emitter>
+	<shape type="serialized" id="turntable">
+		<string name="filename" value="meshes/turntable.serialized" />
+		<ref id="gabor" />
+	</shape>
+	<sensor type="perspective" id="camera_0">
+		<string name="fovAxis" value="smaller" />
+		<transform name="toWorld">
+			<lookAt origin="0.868995, -0.016711, 0.258935" target="-0.09690899, 0.005678, 0.0010040104" up="-0.257885, 0.004963, 0.966163" />
+		</transform>
+		<float name="fov" value="5.4" />
+		<sampler type="ldsampler">
+			<integer name="sampleCount" value="32" />
+		</sampler>
+		<film type="hdrfilm">
+			<integer name="width" value="876" />
+			<integer name="height" value="584" />
+			<boolean name="banner" value="false" />
+			<rfilter type="gaussian" />
+		</film>
+	</sensor>
+	<integrator type="direct" />
+</scene>
