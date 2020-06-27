@@ -18,7 +18,7 @@ $$G\left(f_{x}, f_{y}\right)=\frac{K}{2 a^{2}}\left\{e^{-\frac{\pi}{a^{2}}\left[
 class GaborKernel {
     float K, a, F0, w0;
 public:
-    float atSpatial(float _x, float _y) const {     // 2-3节，公式(6) abor核在空间域的取值
+    float atSpatial(float _x, float _y) const {     // 2-3节，公式(6) Gabor核在空间域的取值
         const float envelop = K * exp(-M_PI * a * a * (_x * _x + _y * _y)),
                 harmonic = cos(2.0 * M_PI * F0 * (_x * cos(w0) + _y * sin(w0)));
         return envelop * harmonic;
