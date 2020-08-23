@@ -1,5 +1,5 @@
 # 2020春学期南京大学图形绘制技术课程
-* 作业四 [作业四报告](./作业4_蓝噪采样/README.md)
+* 作业四 [作业四报告](./BlueNoiseSampling/README.md)
 * 大作业 [大作业报告](./README.md)
 
 # 大作业 Gabor噪声生成与渲染
@@ -9,6 +9,37 @@
 1. 计算参数可控的 Gabor 核及其理论频谱、Gabor 噪声及其理论频谱
 2. 利用噪声叠加、函数处理和颜色映射表生成花瓶条纹、云朵纹理和火焰纹理
 3. 在 mitsuba 中渲染两个三维场景：布料和球体
+
+### 测试案例
+* 使用mitsuba的示例
+```shell
+wget http://www.mitsuba-renderer.org/scenes/irawan.zip      # 布料
+wget http://www.mitsuba-renderer.org/scenes/matpreview.zip  # 球体
+```
+* 应用在三维物体上的渲染效果如下：
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+<td align="center"><img src="GaborNoise/img/cloth-4.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/cloth-1.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/cloth-0.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/cloth-3.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/cloth-2.jpg" width="180px" height="auto"/></td>
+  </tr>
+  <tr>
+<td align="center"><img src="GaborNoise/img/mat-4.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/mat-2.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/mat-1.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/mat-3.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/mat-0.jpg" width="180px" height="auto"/></td>
+  </tr>
+    <tr>
+<td align="center"><img src="GaborNoise/img/花瓶条纹-各向异性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/火焰纹理-各向异性-1-0.2-0.25-0-8-10.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/云朵纹理-各向同性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/噪声上色-各向同性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/噪声上色-各向异性-1-0.2-0.25-0-8-32.jpg"width="180px" height="auto"/></td>
+</tr>
+</table>
     
 ### 解决思路
 1. 参数可控的Gabor核的生成
@@ -55,11 +86,11 @@ public:
 * 在256×256分辨率、空间域1:16插值、频域1:128插值显示时，不同控制参数对应的Gabor核可视化如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/Gabor核-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">K=1, a=0.15, F0=0.1, ω0=0</td>
@@ -69,11 +100,11 @@ public:
     <td align="center">K=1, a=0.30, F0=0.8, ω0=120</td>
   </tr>
   <tr>
-<td align="center"><img src="img/Gabor核频谱-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核频谱-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核频谱-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核频谱-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor核频谱-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核频谱-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核频谱-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核频谱-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核频谱-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor核频谱-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 </table>
 
@@ -165,11 +196,11 @@ $$S_{N N}\left(f_{r}\right) \approx \lambda E\left[W^{2}\right] \frac{K^{2}}{4 \
 * 各向异性Gabor噪声可视化结果如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">K=1, a=0.15, F0=0.1, ω0=0</td>
@@ -179,22 +210,22 @@ $$S_{N N}\left(f_{r}\right) \approx \lambda E\left[W^{2}\right] \frac{K^{2}}{4 \
     <td align="center">K=1, a=0.30, F0=0.8, ω0=120</td>
   </tr>
   <tr>
-<td align="center"><img src="img/Gabor噪声频谱-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向异性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向异性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向异性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向异性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向异性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 </table>
 
 * 各向同性Gabor噪声可视化结果如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">K=1, a=0.15, F0=0.1, ω0=0</td>
@@ -204,11 +235,11 @@ $$S_{N N}\left(f_{r}\right) \approx \lambda E\left[W^{2}\right] \frac{K^{2}}{4 \
     <td align="center">K=1, a=0.30, F0=0.8, ω0=120</td>
   </tr>
   <tr>
-<td align="center"><img src="img/Gabor噪声频谱-各向同性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向同性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向同性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向同性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/Gabor噪声频谱-各向同性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向同性-1-0.15-0.1-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向同性-1-0.15-0.2-30-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向同性-1-0.3-0.2-60-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向同性-1-0.3-0.4-90-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/Gabor噪声频谱-各向同性-1-0.3-0.8-120-8-10.jpg"width="110px" height="auto"/></td>
 </tr>
 </table>
 
@@ -216,11 +247,11 @@ $$S_{N N}\left(f_{r}\right) \approx \lambda E\left[W^{2}\right] \frac{K^{2}}{4 \
 * 各向异性Gabor噪声可视化结果如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.2-0.25-0-2-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.2-0.25-0-4-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.2-0.25-0-16-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向异性-1-0.2-0.25-0-8-1.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.2-0.25-0-2-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.2-0.25-0-4-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.2-0.25-0-16-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向异性-1-0.2-0.25-0-8-1.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">网格大小=2, 每格脉冲数=10</td>
@@ -234,11 +265,11 @@ $$S_{N N}\left(f_{r}\right) \approx \lambda E\left[W^{2}\right] \frac{K^{2}}{4 \
 * 各向同性Gabor噪声可视化结果如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.2-0.25-0-2-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.2-0.25-0-4-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.2-0.25-0-16-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/黑白噪声-各向同性-1-0.2-0.25-0-8-1.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.2-0.25-0-2-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.2-0.25-0-4-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.2-0.25-0-16-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/黑白噪声-各向同性-1-0.2-0.25-0-8-1.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">网格大小=2, 每格脉冲数=10</td>
@@ -368,11 +399,11 @@ private:
 * 一组效果和对应的参数如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/花瓶条纹-各向异性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/火焰纹理-各向异性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/云朵纹理-各向同性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/噪声上色-各向同性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
-<td align="center"><img src="img/噪声上色-各向异性-1-0.2-0.25-0-8-32.jpg"width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/花瓶条纹-各向异性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/火焰纹理-各向异性-1-0.2-0.25-0-8-10.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/云朵纹理-各向同性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/噪声上色-各向同性-1-0.2-0.25-0-8-32.jpg" width="110px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/噪声上色-各向异性-1-0.2-0.25-0-8-32.jpg"width="110px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">花瓶条纹-各向异性-1-0.2-0.25-0-8-32</td>
@@ -388,7 +419,7 @@ private:
 </br>
 </br>
 
-### 测试案例和效果演示
+### 效果演示
 #### 噪声和纹理生成的调试 Qt窗体应用
 * 编译运行，依赖Qt5
 * 使用CMake或者QMake构建
@@ -398,16 +429,16 @@ private:
 * 界面设计如下：
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-<td align="center"><img src="img/s1.png" width="400px" height="auto"/></td>
-<td align="center"><img src="img/s2.png" width="400px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/s1.png" width="400px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/s2.png" width="400px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">启动界面和区域功能</td>
     <td align="center">滚轮或键盘控制参数</td>
   </tr>
     <tr>
-<td align="center"><img src="img/s3.png" width="400px" height="auto"/></td>
-<td align="center"><img src="img/s4.png" width="400px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/s3.png" width="400px" height="auto"/></td>
+<td align="center"><img src="GaborNoise/img/s4.png" width="400px" height="auto"/></td>
 </tr>
 <tr>
     <td align="center">下拉菜单控制按钮行为</td>
@@ -435,43 +466,13 @@ private:
 ```xml
 	<bsdf type="diffuse" id="gabor_tex">
 		<texture type="bitmap" name="reflectance">
-			<string name="filename" value="../../img/tex.jpg" />
+			<string name="filename" value="../../GaborNoise/img/tex.jpg" />
 			<string name="wrapMode" value="mirror" />
 			<string name="filterType" value="ewa" />
 			<float name="maxAnisotropy" value="100" />
 		</texture>
 	</bsdf>
 ```
-
-* 使用mitsuba的示例
-```shell
-wget http://www.mitsuba-renderer.org/scenes/irawan.zip      # 布料
-wget http://www.mitsuba-renderer.org/scenes/matpreview.zip  # 球体
-```
-* 应用在三维物体上的渲染效果如下：
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-<td align="center"><img src="img/cloth-4.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/cloth-1.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/cloth-0.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/cloth-3.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/cloth-2.jpg" width="180px" height="auto"/></td>
-  </tr>
-  <tr>
-<td align="center"><img src="img/mat-4.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/mat-2.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/mat-1.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/mat-3.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/mat-0.jpg" width="180px" height="auto"/></td>
-  </tr>
-    <tr>
-<td align="center"><img src="img/花瓶条纹-各向异性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/火焰纹理-各向异性-1-0.2-0.25-0-8-10.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/云朵纹理-各向同性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/噪声上色-各向同性-1-0.2-0.25-0-8-32.jpg" width="180px" height="auto"/></td>
-<td align="center"><img src="img/噪声上色-各向异性-1-0.2-0.25-0-8-32.jpg"width="180px" height="auto"/></td>
-</tr>
-</table>
 
 ### 结论
 1. Gabor噪声易于进行参数控制
